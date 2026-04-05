@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Books — Tools to Build the Man God Calls You to Be | Inspired Life Co</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Montserrat',sans-serif;background:#000;color:rgba(255,255,255,0.85);overflow-x:hidden;}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+#mainNav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.4rem 2.5rem;background:rgba(0,0,0,0.94);backdrop-filter:blur(24px);border-bottom:1px solid rgba(92,255,61,0.1);}
+.nav-link{font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.2s;}
+.nav-link:hover,.nav-link.active{color:#5CFF3D;}
+.btn-primary{display:inline-block;padding:1rem 2.6rem;background:#5CFF3D;color:#000;font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.25s;}
+.btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 40px rgba(92,255,61,0.45);}
+.btn-outline{display:inline-block;padding:1rem 2.6rem;background:transparent;color:#5CFF3D;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border:1.5px solid rgba(92,255,61,0.5);cursor:pointer;transition:background 0.2s,border-color 0.2s,transform 0.2s;}
+.btn-outline:hover{background:rgba(92,255,61,0.07);border-color:#5CFF3D;transform:translateY(-2px);}
+.section-tag{font-size:0.68rem;font-weight:800;letter-spacing:0.3em;text-transform:uppercase;color:#5CFF3D;display:block;margin-bottom:0.9rem;}
+.section-h2{font-size:clamp(2rem,4.5vw,3.4rem);font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.1;margin-bottom:1.2rem;}
+.body-text{font-size:0.97rem;color:rgba(255,255,255,0.55);line-height:1.85;font-weight:500;}
+.h-divider{height:1px;background:linear-gradient(to right,transparent,rgba(92,255,61,0.15),transparent);}
+.book-card{background:#0A0A0A;border:1px solid rgba(92,255,61,0.1);overflow:hidden;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.35s,border-color 0.3s;}
+.book-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.6),0 0 40px rgba(92,255,61,0.07);border-color:rgba(92,255,61,0.22);}
+.book-cover{position:relative;overflow:hidden;}
+.book-cover img{width:100%;display:block;transition:transform 0.6s ease;}
+.book-card:hover .book-cover img{transform:scale(1.04);}
+.book-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.7));pointer-events:none;}
+.testi-card{background:#080808;border:1px solid rgba(92,255,61,0.08);padding:2.5rem;position:relative;}
+.testi-card::before{content:'"';position:absolute;top:0.5rem;left:1.5rem;font-size:6rem;font-weight:900;color:rgba(92,255,61,0.07);line-height:1;pointer-events:none;}
+.testi-text{font-size:1rem;font-weight:500;color:rgba(255,255,255,0.8);line-height:1.8;font-style:italic;position:relative;z-index:1;margin-bottom:1.5rem;}
+.testi-name{font-size:0.78rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:#5CFF3D;}
+.testi-role{font-size:0.75rem;font-weight:500;color:rgba(255,255,255,0.35);margin-top:0.2rem;}
+.reveal-up{opacity:0;transform:translateY(40px);}
+.reveal-left{opacity:0;transform:translateX(-50px);}
+.reveal-right{opacity:0;transform:translateX(50px);}
+.reveal-scale{opacity:0;transform:scale(0.92);}
+.revealed{opacity:1!important;transform:none!important;transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1),transform 0.75s cubic-bezier(0.34,1.56,0.64,1)!important;}
+footer{background:#040404;border-top:1px solid rgba(92,255,61,0.08);color:rgba(255,255,255,0.4);padding:3rem 2rem;}
+.footer-link{color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;}
+.footer-link:hover{color:#5CFF3D;}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;">
+    <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.6rem;">
+      <div style="width:36px;height:36px;background:#5CFF3D;display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:1rem;font-weight:900;color:#000;">IL</span>
+      </div>
+      <span style="font-weight:800;font-size:0.95rem;color:#fff;letter-spacing:0.04em;text-transform:uppercase;">Inspired Life Co</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="course.html" class="nav-link">Course</a>
+      <a href="speaking.html" class="nav-link">Speaking</a>
+      <a href="books.html" class="nav-link active">Books</a>
+      <a href="speaking.html" class="btn-primary" style="padding:0.6rem 1.5rem;font-size:0.75rem;">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section style="padding:10rem 2.5rem 6rem;background:linear-gradient(180deg,#050A05 0%,#000 100%);position:relative;overflow:hidden;text-align:center;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 0%,rgba(92,255,61,0.05),transparent);pointer-events:none;"></div>
+  <div style="max-width:720px;margin:0 auto;position:relative;">
+    <span class="section-tag">Books</span>
+    <h1 style="font-size:clamp(2.8rem,6vw,5.5rem);font-weight:900;color:#fff;line-height:0.95;letter-spacing:-0.035em;margin-bottom:1.75rem;">
+      Tools to Build<br>the Man <span style="color:#5CFF3D;">God Calls</span><br>You to Be.
+    </h1>
+    <p class="body-text" style="max-width:500px;margin:0 auto 2.5rem;font-size:1.05rem;">
+      Not motivational fluff. Not empty hype. Real frameworks, real Scripture, real talk — from a man who has walked the road and lived the transformation.
+    </p>
+    <a href="#books" class="btn-primary">Browse the Books</a>
+  </div>
+</section>
+
+<!-- BOOKS -->
+<section id="books" style="padding:7rem 2.5rem;max-width:1280px;margin:0 auto;">
+
+  <!-- BOOK 1 — Featured -->
+  <div style="display:grid;grid-template-columns:2fr 3fr;gap:5rem;align-items:center;margin-bottom:6rem;" class="book-feature-grid">
+    <div class="reveal-left" style="position:relative;">
+      <div class="book-cover" style="border:1px solid rgba(92,255,61,0.15);">
+        <img src="https://placehold.co/480x620/0a0a0a/5CFF3D?text=Inspired+to+Lead" alt="Inspired to Lead book cover" style="height:560px;object-fit:cover;">
+      </div>
+      <div style="position:absolute;top:1rem;right:-0.75rem;background:#5CFF3D;padding:0.5rem 1rem;writing-mode:vertical-rl;text-orientation:mixed;">
+        <span style="font-size:0.6rem;font-weight:900;letter-spacing:0.2em;text-transform:uppercase;color:#000;">Best Seller</span>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div style="display:inline-block;padding:0.3rem 0.85rem;background:rgba(92,255,61,0.1);border:1px solid rgba(92,255,61,0.2);margin-bottom:1.25rem;">
+        <span style="font-size:0.65rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#5CFF3D;">Book 01</span>
+      </div>
+      <h2 style="font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:#fff;letter-spacing:-0.025em;line-height:1.05;margin-bottom:1rem;">Inspired to Lead</h2>
+      <p style="font-size:0.88rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;">The Foundation · Leadership · Purpose · Faith</p>
+      <p class="body-text" style="margin-bottom:1.5rem;">The foundational text. This is where it starts. If you've ever felt like you're supposed to be more — a better father, a stronger leader, a man people actually follow — this book gives you the blueprint.</p>
+      <p class="body-text" style="margin-bottom:2rem;">Written from the trenches — from the NFL locker room to the darkest personal valleys — this is an honest, practical, faith-rooted guide to becoming the man you know you're capable of being.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;padding:1.5rem;background:#0A0A0A;border:1px solid rgba(92,255,61,0.1);">
+        <div style="text-align:center;">
+          <div style="font-size:1.5rem;font-weight:900;color:#5CFF3D;">8</div>
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.2rem;">Chapters</div>
+        </div>
+        <div style="text-align:center;border-left:1px solid rgba(92,255,61,0.1);border-right:1px solid rgba(92,255,61,0.1);">
+          <div style="font-size:1.5rem;font-weight:900;color:#5CFF3D;">224</div>
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.2rem;">Pages</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:1.5rem;font-weight:900;color:#5CFF3D;">5★</div>
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.2rem;">Rating</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="#" class="btn-primary">Get the Book</a>
+        <a href="#" class="btn-outline">Kindle / eBook</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="h-divider"></div>
+
+  <!-- BOOK 2 -->
+  <div style="display:grid;grid-template-columns:3fr 2fr;gap:5rem;align-items:center;margin:6rem 0;" class="book-feature-grid-r">
+    <div class="reveal-left">
+      <div style="display:inline-block;padding:0.3rem 0.85rem;background:rgba(92,255,61,0.1);border:1px solid rgba(92,255,61,0.2);margin-bottom:1.25rem;">
+        <span style="font-size:0.65rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#5CFF3D;">Book 02</span>
+      </div>
+      <h2 style="font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:#fff;letter-spacing:-0.025em;line-height:1.05;margin-bottom:1rem;">Speak with Purpose</h2>
+      <p style="font-size:0.88rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;">Communication · Confidence · Voice · Impact</p>
+      <p class="body-text" style="margin-bottom:1.5rem;">Most men have something to say. Very few know how to say it in a way that actually lands. This book changes that.</p>
+      <p class="body-text" style="margin-bottom:2rem;">From communicating with your spouse to commanding a conference room, <em style="color:rgba(255,255,255,0.8);">Speak with Purpose</em> breaks down how to develop a voice that is clear, confident, and compelling — in every context of your life.</p>
+      <div style="margin-bottom:1.75rem;display:flex;flex-direction:column;gap:0.65rem;">
+        <div style="display:flex;align-items:center;gap:0.75rem;"><span style="color:#5CFF3D;font-weight:900;">✓</span><span style="font-size:0.88rem;font-weight:500;color:rgba(255,255,255,0.65);">How to communicate clearly under pressure</span></div>
+        <div style="display:flex;align-items:center;gap:0.75rem;"><span style="color:#5CFF3D;font-weight:900;">✓</span><span style="font-size:0.88rem;font-weight:500;color:rgba(255,255,255,0.65);">The framework for difficult conversations</span></div>
+        <div style="display:flex;align-items:center;gap:0.75rem;"><span style="color:#5CFF3D;font-weight:900;">✓</span><span style="font-size:0.88rem;font-weight:500;color:rgba(255,255,255,0.65);">How to lead meetings, marriages, and moments</span></div>
+        <div style="display:flex;align-items:center;gap:0.75rem;"><span style="color:#5CFF3D;font-weight:900;">✓</span><span style="font-size:0.88rem;font-weight:500;color:rgba(255,255,255,0.65);">Public speaking fundamentals for non-speakers</span></div>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="#" class="btn-primary">Get the Book</a>
+        <a href="#" class="btn-outline">Kindle / eBook</a>
+      </div>
+    </div>
+    <div class="reveal-right" style="position:relative;">
+      <div class="book-cover" style="border:1px solid rgba(92,255,61,0.12);">
+        <img src="https://placehold.co/480x620/0f1008/1FAE4B?text=Speak+with+Purpose" alt="Speak with Purpose book cover" style="height:520px;object-fit:cover;">
+      </div>
+    </div>
+  </div>
+
+  <div class="h-divider"></div>
+
+  <!-- BOOK 3 -->
+  <div style="display:grid;grid-template-columns:2fr 3fr;gap:5rem;align-items:center;margin-top:6rem;" class="book-feature-grid">
+    <div class="reveal-left" style="position:relative;">
+      <div class="book-cover" style="border:1px solid rgba(92,255,61,0.12);">
+        <img src="https://placehold.co/480x620/060606/5CFF3D?text=Built+Different" alt="Built Different book cover" style="height:520px;object-fit:cover;">
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div style="display:inline-block;padding:0.3rem 0.85rem;background:rgba(92,255,61,0.1);border:1px solid rgba(92,255,61,0.2);margin-bottom:1.25rem;">
+        <span style="font-size:0.65rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#5CFF3D;">Book 03</span>
+      </div>
+      <h2 style="font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:#fff;letter-spacing:-0.025em;line-height:1.05;margin-bottom:1rem;">Built Different</h2>
+      <p style="font-size:0.88rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;">Discipline · Identity · Legacy · Resilience</p>
+      <p class="body-text" style="margin-bottom:1.5rem;">The world wants you average. Comfortable. Quiet. This book refuses to let that happen.</p>
+      <p class="body-text" style="margin-bottom:2rem;"><em style="color:rgba(255,255,255,0.8);">Built Different</em> is a raw, unfiltered look at what it takes to live differently in a culture that rewards mediocrity. Discipline. Faith. Sacrifice. Legacy. The men who read this book don't go back to normal — because normal no longer fits.</p>
+      <blockquote style="border-left:3px solid #5CFF3D;padding-left:1.25rem;margin-bottom:2rem;">
+        <p style="font-size:1rem;font-style:italic;font-weight:600;color:rgba(255,255,255,0.75);line-height:1.7;">"Discipline isn't the enemy of freedom. It's the only road that leads there."</p>
+        <cite style="font-size:0.72rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:#5CFF3D;font-style:normal;margin-top:0.5rem;display:block;">— From Built Different</cite>
+      </blockquote>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="#" class="btn-primary">Get the Book</a>
+        <a href="#" class="btn-outline">Kindle / eBook</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="h-divider" style="max-width:1280px;margin:0 auto;"></div>
+
+<!-- READER TESTIMONIALS -->
+<section style="padding:7rem 2.5rem;max-width:1280px;margin:0 auto;">
+  <div style="text-align:center;margin-bottom:4.5rem;">
+    <span class="section-tag reveal-up">Reader Reviews</span>
+    <h2 class="section-h2 reveal-up">These Books <span style="color:#5CFF3D;">Changed My Life.</span></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="testi-grid">
+    <div class="testi-card reveal-up">
+      <p class="testi-text">"Inspired to Lead wrecked me in the best way. I finished it and immediately called my dad to apologize. Then I called my son to be better."</p>
+      <div class="testi-name">Antoine B.</div>
+      <div class="testi-role">Father of 2 · Houston, TX</div>
+    </div>
+    <div class="testi-card reveal-up">
+      <p class="testi-text">"Speak with Purpose gave me tools I use every single day. My marriage improved within two weeks of reading it. That's not an exaggeration."</p>
+      <div class="testi-name">Daniel P.</div>
+      <div class="testi-role">Husband · Business Owner</div>
+    </div>
+    <div class="testi-card reveal-up">
+      <p class="testi-text">"Built Different should be required reading for every Christian man. I bought 12 copies and gave them out at our men's group. All 12 came back changed."</p>
+      <div class="testi-name">Pastor Jerome H.</div>
+      <div class="testi-role">Men's Ministry Leader</div>
+    </div>
+  </div>
+</section>
+
+<!-- BUNDLE CTA -->
+<section style="padding:7rem 2.5rem;background:#0A100A;border-top:1px solid rgba(92,255,61,0.08);border-bottom:1px solid rgba(92,255,61,0.08);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 50% 50%,rgba(92,255,61,0.04),transparent);pointer-events:none;"></div>
+  <div style="max-width:700px;margin:0 auto;text-align:center;position:relative;">
+    <span class="section-tag reveal-up">Get All Three</span>
+    <h2 class="section-h2 reveal-up">The Complete<br><span style="color:#5CFF3D;">Transformation Bundle.</span></h2>
+    <p class="body-text reveal-up" style="margin-bottom:1.5rem;">Identity. Voice. Discipline. Together, these three books cover every dimension of becoming the man God designed. Start with one or get the full journey.</p>
+    <p style="font-size:0.78rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(92,255,61,0.6);margin-bottom:2.5rem;" class="reveal-up">Bundle pricing available · Signed copies available</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="reveal-scale">
+      <a href="#" class="btn-primary">Get the Bundle</a>
+      <a href="course.html" class="btn-outline">Also: Take the Course</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+    <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.6rem;">
+      <div style="width:28px;height:28px;background:#5CFF3D;display:flex;align-items:center;justify-content:center;"><span style="font-size:0.8rem;font-weight:900;color:#000;">IL</span></div>
+      <span style="font-weight:800;font-size:0.85rem;color:rgba(255,255,255,0.5);letter-spacing:0.04em;text-transform:uppercase;">Inspired Life Co</span>
+    </a>
+    <div style="display:flex;gap:2rem;">
+      <a href="index.html" class="footer-link">Home</a>
+      <a href="course.html" class="footer-link">Course</a>
+      <a href="speaking.html" class="footer-link">Speaking</a>
+      <a href="books.html" class="footer-link">Books</a>
+    </div>
+    <p style="font-size:0.72rem;font-weight:500;">© 2026 Inspired Life Co.</p>
+  </div>
+</footer>
+
+<style>
+@media(max-width:900px){
+  .book-feature-grid,.book-feature-grid-r{grid-template-columns:1fr!important;gap:3rem!important;}
+  .testi-grid{grid-template-columns:1fr!important;}
+}
+</style>
+<script>
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const s=[...e.target.parentElement.querySelectorAll('.reveal-up,.reveal-left,.reveal-right,.reveal-scale')];const i=s.indexOf(e.target);e.target.style.transitionDelay=`${i*0.1}s`;e.target.classList.add('revealed');ro.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal-up,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>

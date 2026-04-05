@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inspired Life Co — Become the Man Your Family Needs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Montserrat',sans-serif;background:#000;color:rgba(255,255,255,0.85);overflow-x:hidden;}
+
+/* ── COLORS ────────────────────────────────────────── */
+:root{
+  --ng:#5CFF3D;
+  --dg:#1FAE4B;
+  --black:#000000;
+  --surface:#0A0A0A;
+  --surface2:#0F1008;
+  --text:rgba(255,255,255,0.85);
+  --muted:rgba(255,255,255,0.45);
+}
+
+/* ── GRAIN ─────────────────────────────────────────── */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ── NAV ───────────────────────────────────────────── */
+#mainNav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.4rem 2.5rem;transition:background 0.3s,border 0.3s,backdrop-filter 0.3s;}
+.scrolled-nav{background:rgba(0,0,0,0.94)!important;backdrop-filter:blur(24px);border-bottom:1px solid rgba(92,255,61,0.1)!important;}
+.nav-link{font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.2s;}
+.nav-link:hover{color:#5CFF3D;}
+.nav-link.active{color:#fff;}
+
+/* ── BUTTONS ───────────────────────────────────────── */
+.btn-primary{display:inline-block;padding:1rem 2.6rem;background:#5CFF3D;color:#000;font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.25s;}
+.btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 40px rgba(92,255,61,0.45);}
+.btn-primary:active{transform:translateY(0) scale(0.99);}
+.btn-outline{display:inline-block;padding:1rem 2.6rem;background:transparent;color:#5CFF3D;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border:1.5px solid rgba(92,255,61,0.5);cursor:pointer;transition:background 0.2s,border-color 0.2s,transform 0.2s,box-shadow 0.2s;}
+.btn-outline:hover{background:rgba(92,255,61,0.07);border-color:#5CFF3D;transform:translateY(-2px);box-shadow:0 8px 30px rgba(92,255,61,0.2);}
+
+/* ── HERO ──────────────────────────────────────────── */
+#hero{position:relative;min-height:100vh;overflow:hidden;display:flex;align-items:center;background:#000;}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+.hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(31,174,75,0.08),transparent),
+             radial-gradient(ellipse 60% 80% at 50% 50%,rgba(0,0,0,0.3),transparent);}
+
+/* ── SECTION TAGS ──────────────────────────────────── */
+.section-tag{font-size:0.68rem;font-weight:800;letter-spacing:0.3em;text-transform:uppercase;color:#5CFF3D;display:block;margin-bottom:0.9rem;}
+.section-h2{font-family:'Montserrat',sans-serif;font-size:clamp(2rem,4.5vw,3.4rem);font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.1;margin-bottom:1.2rem;}
+.body-text{font-size:0.97rem;color:rgba(255,255,255,0.55);line-height:1.85;font-weight:500;}
+
+/* ── CARDS ─────────────────────────────────────────── */
+.offer-card{background:#0A0A0A;border:1px solid rgba(92,255,61,0.1);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.35s,border-color 0.3s;}
+.offer-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#5CFF3D,transparent);opacity:0;transition:opacity 0.3s;}
+.offer-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.6),0 0 40px rgba(92,255,61,0.08);border-color:rgba(92,255,61,0.25);}
+.offer-card:hover::before{opacity:1;}
+.card-num{font-family:'Montserrat',sans-serif;font-size:4.5rem;font-weight:900;color:rgba(92,255,61,0.08);line-height:1;margin-bottom:1.25rem;letter-spacing:-0.04em;}
+.card-title{font-family:'Montserrat',sans-serif;font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:0.75rem;letter-spacing:-0.01em;}
+.card-text{font-size:0.9rem;color:rgba(255,255,255,0.5);line-height:1.8;font-weight:500;margin-bottom:1.5rem;}
+
+/* ── DIVIDER ───────────────────────────────────────── */
+.h-divider{height:1px;background:linear-gradient(to right,transparent,rgba(92,255,61,0.15),transparent);}
+
+/* ── TESTIMONIAL ───────────────────────────────────── */
+.testi-card{background:#080808;border:1px solid rgba(92,255,61,0.08);padding:2.5rem;position:relative;}
+.testi-card::before{content:'"';position:absolute;top:0.5rem;left:1.5rem;font-size:6rem;font-weight:900;color:rgba(92,255,61,0.07);line-height:1;pointer-events:none;}
+.testi-text{font-size:1rem;font-weight:500;color:rgba(255,255,255,0.8);line-height:1.8;font-style:italic;position:relative;z-index:1;margin-bottom:1.5rem;}
+.testi-name{font-size:0.78rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:#5CFF3D;}
+.testi-role{font-size:0.75rem;font-weight:500;color:rgba(255,255,255,0.35);margin-top:0.2rem;}
+
+/* ── STAT ──────────────────────────────────────────── */
+.stat-num{font-family:'Montserrat',sans-serif;font-size:3.2rem;font-weight:900;color:#5CFF3D;letter-spacing:-0.03em;line-height:1;}
+.stat-label{font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:0.4rem;}
+
+/* ── PHOTO FRAME ───────────────────────────────────── */
+.photo-frame{position:relative;overflow:hidden;}
+.photo-frame img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease;}
+.photo-frame:hover img{transform:scale(1.03);}
+.photo-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.5),rgba(31,174,75,0.1));mix-blend-mode:multiply;pointer-events:none;}
+.photo-corner{position:absolute;width:40px;height:40px;border-color:#5CFF3D;border-style:solid;opacity:0.6;}
+.photo-corner.tl{top:12px;left:12px;border-width:2px 0 0 2px;}
+.photo-corner.br{bottom:12px;right:12px;border-width:0 2px 2px 0;}
+
+/* ── REVEAL ────────────────────────────────────────── */
+.reveal-up{opacity:0;transform:translateY(40px);}
+.reveal-left{opacity:0;transform:translateX(-50px);}
+.reveal-right{opacity:0;transform:translateX(50px);}
+.reveal-scale{opacity:0;transform:scale(0.92);}
+.revealed{opacity:1!important;transform:none!important;transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1),transform 0.75s cubic-bezier(0.34,1.56,0.64,1)!important;}
+
+/* ── FOOTER ────────────────────────────────────────── */
+footer{background:#040404;border-top:1px solid rgba(92,255,61,0.08);color:rgba(255,255,255,0.4);padding:4.5rem 2rem 2rem;}
+.footer-link{color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;}
+.footer-link:hover{color:#5CFF3D;}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- NAV -->
+<nav id="mainNav" style="border-bottom:1px solid transparent;">
+  <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;">
+    <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.6rem;">
+      <div style="width:36px;height:36px;background:#5CFF3D;display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:1rem;font-weight:900;color:#000;letter-spacing:-0.05em;">IL</span>
+      </div>
+      <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.95rem;color:#fff;letter-spacing:0.04em;text-transform:uppercase;">Inspired Life Co</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="course.html" class="nav-link">Course</a>
+      <a href="speaking.html" class="nav-link">Speaking</a>
+      <a href="books.html" class="nav-link">Books</a>
+      <a href="speaking.html" class="btn-primary" style="padding:0.6rem 1.5rem;font-size:0.75rem;">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-overlay"></div>
+  <div style="position:relative;z-index:10;max-width:1280px;margin:0 auto;padding:0 2.5rem;width:100%;">
+    <div style="max-width:760px;">
+      <div style="display:inline-flex;align-items:center;gap:0.75rem;margin-bottom:2rem;padding:0.5rem 1.2rem;border:1px solid rgba(92,255,61,0.25);background:rgba(92,255,61,0.04);">
+        <span style="width:6px;height:6px;background:#5CFF3D;border-radius:50%;animation:pulse 2s ease-in-out infinite;flex-shrink:0;"></span>
+        <span style="font-size:0.68rem;font-weight:800;letter-spacing:0.28em;text-transform:uppercase;color:#5CFF3D;">Christian · Leader · Speaker · Author</span>
+      </div>
+      <h1 style="font-family:'Montserrat',sans-serif;font-size:clamp(3rem,8.5vw,7.5rem);font-weight:900;color:#fff;line-height:0.95;letter-spacing:-0.035em;margin-bottom:2rem;text-shadow:0 0 80px rgba(92,255,61,0.15);">
+        Become<br>
+        <span style="color:#5CFF3D;">the Man</span><br>
+        Your Family<br>Needs.
+      </h1>
+      <p style="font-size:clamp(1rem,1.8vw,1.15rem);color:rgba(255,255,255,0.6);max-width:520px;line-height:1.85;font-weight:500;margin-bottom:1.5rem;">
+        I help Christian men gain clarity in their purpose, develop powerful communication skills, and become confident leaders in their family and business.
+      </p>
+      <!-- Framework pill -->
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:2.5rem;flex-wrap:wrap;">
+        <span style="padding:0.4rem 1rem;background:rgba(92,255,61,0.1);border:1px solid rgba(92,255,61,0.3);font-size:0.72rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#5CFF3D;">Clarity</span>
+        <span style="color:rgba(255,255,255,0.25);font-weight:700;">→</span>
+        <span style="padding:0.4rem 1rem;background:rgba(92,255,61,0.06);border:1px solid rgba(92,255,61,0.18);font-size:0.72rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(92,255,61,0.8);">Communication</span>
+        <span style="color:rgba(255,255,255,0.25);font-weight:700;">→</span>
+        <span style="padding:0.4rem 1rem;background:rgba(92,255,61,0.06);border:1px solid rgba(92,255,61,0.18);font-size:0.72rem;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(92,255,61,0.8);">Leadership</span>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="course.html" class="btn-primary">Start the Course</a>
+        <a href="speaking.html" class="btn-outline">Book a Speaking Event</a>
+      </div>
+    </div>
+  </div>
+  <!-- Scroll hint -->
+  <div style="position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+    <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Scroll</span>
+    <div style="width:1px;height:48px;background:linear-gradient(to bottom,rgba(92,255,61,0.5),transparent);animation:scrollLine 2.5s ease-in-out infinite;"></div>
+  </div>
+</section>
+
+<!-- TRUST STRIPE -->
+<div style="background:#0A0A0A;border-top:1px solid rgba(92,255,61,0.08);border-bottom:1px solid rgba(92,255,61,0.08);padding:2rem 2.5rem;overflow:hidden;">
+  <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div class="stat-num reveal-scale">NFL</div>
+      <div class="stat-label">Professional Athlete</div>
+    </div>
+    <div style="width:1px;height:48px;background:rgba(92,255,61,0.15);flex-shrink:0;"></div>
+    <div style="text-align:center;">
+      <div class="stat-num reveal-scale">1,000+</div>
+      <div class="stat-label">Men Transformed</div>
+    </div>
+    <div style="width:1px;height:48px;background:rgba(92,255,61,0.15);flex-shrink:0;"></div>
+    <div style="text-align:center;">
+      <div class="stat-num reveal-scale">500+</div>
+      <div class="stat-label">Speaking Events</div>
+    </div>
+    <div style="width:1px;height:48px;background:rgba(92,255,61,0.15);flex-shrink:0;"></div>
+    <div style="text-align:center;">
+      <div class="stat-num reveal-scale">5★</div>
+      <div class="stat-label">Rated Speaker</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section style="padding:7rem 2.5rem;max-width:1280px;margin:0 auto;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;" class="about-grid">
+    <div>
+      <span class="section-tag reveal-up">The Story</span>
+      <h2 class="section-h2 reveal-up">Built in the <span style="color:#5CFF3D;">Trenches.</span><br>Called to Lead.</h2>
+      <p class="body-text reveal-up" style="margin-bottom:1.5rem;">
+        Before the stage, there was the field. A career in the NFL taught discipline, sacrifice, and what it means to perform under pressure. But when the cleats came off, a greater calling emerged — one that couldn't be measured in yards gained.
+      </p>
+      <p class="body-text reveal-up" style="margin-bottom:2rem;">
+        Today, that same fire that fueled an NFL career is poured into helping Christian men discover who God built them to be. Strong leaders. Present fathers. Men of clarity and conviction.
+      </p>
+      <div style="display:flex;gap:2rem;margin-bottom:2.5rem;" class="reveal-up">
+        <div>
+          <div style="font-size:1.6rem;font-weight:900;color:#5CFF3D;letter-spacing:-0.03em;">Clarity</div>
+          <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.2rem;">Purpose &amp; Vision</div>
+        </div>
+        <div style="width:1px;background:rgba(92,255,61,0.15);flex-shrink:0;"></div>
+        <div>
+          <div style="font-size:1.6rem;font-weight:900;color:#5CFF3D;letter-spacing:-0.03em;">Comm.</div>
+          <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.2rem;">Confidence &amp; Influence</div>
+        </div>
+        <div style="width:1px;background:rgba(92,255,61,0.15);flex-shrink:0;"></div>
+        <div>
+          <div style="font-size:1.6rem;font-weight:900;color:#5CFF3D;letter-spacing:-0.03em;">Leadership</div>
+          <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.2rem;">Family &amp; Business</div>
+        </div>
+      </div>
+      <a href="speaking.html" class="btn-primary reveal-up">My Story</a>
+    </div>
+    <div class="reveal-right" style="position:relative;">
+      <div class="photo-frame" style="height:600px;">
+        <img src="https://placehold.co/600x600/0a0a0a/1FAE4B?text=Photo+of+Speaker" alt="Speaker photo">
+        <div class="photo-corner tl"></div>
+        <div class="photo-corner br"></div>
+      </div>
+      <div style="position:absolute;bottom:-1.5rem;right:-1.5rem;background:#5CFF3D;padding:1.5rem 2rem;z-index:10;">
+        <div style="font-size:0.65rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#000;margin-bottom:0.25rem;">Discipline Creates</div>
+        <div style="font-size:1.4rem;font-weight:900;color:#000;letter-spacing:-0.02em;">Freedom.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="h-divider" style="max-width:1280px;margin:0 auto;"></div>
+
+<!-- WHAT I DO -->
+<section style="padding:7rem 2.5rem;max-width:1280px;margin:0 auto;">
+  <div style="text-align:center;margin-bottom:4.5rem;">
+    <span class="section-tag reveal-up">What I Do</span>
+    <h2 class="section-h2 reveal-up" style="max-width:600px;margin:0 auto;">The Framework. <span style="color:#5CFF3D;">Three Ways to Work With Me.</span></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="offers-grid">
+
+    <div class="offer-card reveal-up">
+      <div class="card-num">01</div>
+      <div style="font-size:1.8rem;margin-bottom:1rem;">📘</div>
+      <div class="card-title">The Clarity Leader System</div>
+      <p class="card-text">A 90-day program that walks Christian men through Clarity → Communication → Leadership. Find your purpose, own your voice, lead your world.</p>
+      <a href="course.html" class="btn-primary" style="font-size:0.75rem;padding:0.75rem 1.8rem;">Get Started →</a>
+    </div>
+
+    <div class="offer-card reveal-up" style="border-color:rgba(92,255,61,0.2);background:#0A100A;">
+      <div class="card-num" style="color:rgba(92,255,61,0.15);">02</div>
+      <div style="font-size:1.8rem;margin-bottom:1rem;">🎤</div>
+      <div class="card-title">Speaking</div>
+      <p class="card-text">A message that calls men higher. Powerful keynotes for churches, conferences, organizations, and corporate events.</p>
+      <a href="speaking.html" class="btn-primary" style="font-size:0.75rem;padding:0.75rem 1.8rem;">Book the Stage →</a>
+    </div>
+
+    <div class="offer-card reveal-up">
+      <div class="card-num">03</div>
+      <div style="font-size:1.8rem;margin-bottom:1rem;">📖</div>
+      <div class="card-title">Books</div>
+      <p class="card-text">Tools to build the man God calls you to be. Practical, faith-rooted reads that give you the blueprint to show up fully — in every area of life.</p>
+      <a href="books.html" class="btn-primary" style="font-size:0.75rem;padding:0.75rem 1.8rem;">Get the Books →</a>
+    </div>
+
+  </div>
+</section>
+
+<div class="h-divider" style="max-width:1280px;margin:0 auto;"></div>
+
+<!-- COURSE SPOTLIGHT -->
+<section style="padding:7rem 2.5rem;max-width:1280px;margin:0 auto;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;" class="course-grid">
+    <div class="reveal-left" style="position:relative;">
+      <div class="photo-frame" style="height:500px;background:#0F1008;border:1px solid rgba(92,255,61,0.1);">
+        <img src="https://placehold.co/600x500/0f1008/5CFF3D?text=Course+Preview" alt="Course preview">
+        <div class="photo-corner tl"></div>
+        <div class="photo-corner br"></div>
+      </div>
+      <div style="position:absolute;top:1.5rem;left:1.5rem;background:rgba(92,255,61,0.95);padding:0.5rem 1rem;z-index:10;">
+        <span style="font-size:0.65rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#000;">New · Online Course</span>
+      </div>
+    </div>
+    <div>
+      <span class="section-tag reveal-up">The Course</span>
+      <div style="display:inline-block;margin-bottom:1rem;padding:0.35rem 1rem;background:rgba(92,255,61,0.08);border:1px solid rgba(92,255,61,0.2);">
+        <span style="font-size:0.65rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#5CFF3D;">The Clarity Leader System — 90 Days</span>
+      </div>
+      <h2 class="section-h2 reveal-up">Clarity. Communication.<br><span style="color:#5CFF3D;">Leadership.</span></h2>
+      <p class="body-text reveal-up" style="margin-bottom:2rem;">
+        Most men know they're capable of more. They just haven't had a clear path. This 90-day system moves you through the three stages that transform Christian men into the leaders their families and businesses need.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2.5rem;" class="reveal-up">
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <span style="color:#5CFF3D;font-weight:900;font-size:1rem;">1️⃣</span>
+          <span style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);"><strong style="color:#5CFF3D;">Clarity</strong> — discover your purpose and God-given vision</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <span style="color:#5CFF3D;font-weight:900;font-size:1rem;">2️⃣</span>
+          <span style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);"><strong style="color:#5CFF3D;">Communication</strong> — speak with confidence and authority</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <span style="color:#5CFF3D;font-weight:900;font-size:1rem;">3️⃣</span>
+          <span style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.7);"><strong style="color:#5CFF3D;">Leadership</strong> — lead your family and business with conviction</span>
+        </div>
+      </div>
+      <a href="course.html" class="btn-primary reveal-up">Start the Course</a>
+    </div>
+  </div>
+</section>
+
+<div class="h-divider" style="max-width:1280px;margin:0 auto;"></div>
+
+<!-- BRAND STATEMENT -->
+<section style="padding:7rem 2.5rem;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(92,255,61,0.04),transparent);pointer-events:none;"></div>
+  <div style="max-width:900px;margin:0 auto;position:relative;">
+    <span class="section-tag reveal-up">The Framework</span>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:clamp(2.5rem,6vw,5.5rem);font-weight:900;color:#fff;letter-spacing:-0.035em;line-height:1.05;margin-bottom:1.5rem;" class="reveal-up">
+      Clarity.<br>
+      <span style="color:#5CFF3D;">Communication.</span><br>
+      Leadership.
+    </h2>
+    <p class="body-text reveal-up" style="max-width:580px;margin:0 auto 1rem;font-size:1.05rem;">
+      Clear men lead better lives. This is the framework that shows up in every course, every stage, every book — because it works.
+    </p>
+    <!-- 3-pillar breakdown -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;text-align:left;margin:2.5rem 0;" class="reveal-up">
+      <div style="padding:1.75rem;background:rgba(92,255,61,0.04);border:1px solid rgba(92,255,61,0.15);">
+        <div style="font-size:0.65rem;font-weight:800;letter-spacing:0.25em;text-transform:uppercase;color:#5CFF3D;margin-bottom:0.75rem;">Stage 01</div>
+        <div style="font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:0.75rem;">Clarity</div>
+        <p style="font-size:0.85rem;font-weight:500;color:rgba(255,255,255,0.5);line-height:1.7;">Discover your purpose and vision. Know exactly why God put you here and where you're going.</p>
+      </div>
+      <div style="padding:1.75rem;background:rgba(92,255,61,0.07);border:1px solid rgba(92,255,61,0.25);">
+        <div style="font-size:0.65rem;font-weight:800;letter-spacing:0.25em;text-transform:uppercase;color:#5CFF3D;margin-bottom:0.75rem;">Stage 02</div>
+        <div style="font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:0.75rem;">Communication</div>
+        <p style="font-size:0.85rem;font-weight:500;color:rgba(255,255,255,0.5);line-height:1.7;">Learn to speak with confidence and influence. Say what needs to be said and be heard the first time.</p>
+      </div>
+      <div style="padding:1.75rem;background:rgba(92,255,61,0.04);border:1px solid rgba(92,255,61,0.15);">
+        <div style="font-size:0.65rem;font-weight:800;letter-spacing:0.25em;text-transform:uppercase;color:#5CFF3D;margin-bottom:0.75rem;">Stage 03</div>
+        <div style="font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:0.75rem;">Leadership</div>
+        <p style="font-size:0.85rem;font-weight:500;color:rgba(255,255,255,0.5);line-height:1.7;">Lead your family, business, and life with conviction. This is where purpose becomes legacy.</p>
+      </div>
+    </div>
+    <a href="course.html" class="btn-primary reveal-scale">I'm Ready. Let's Go.</a>
+  </div>
+</section>
+
+<div class="h-divider" style="max-width:1280px;margin:0 auto;"></div>
+
+<!-- SPEAKING -->
+<section style="padding:7rem 2.5rem;max-width:1280px;margin:0 auto;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;" class="speaking-grid">
+    <div>
+      <span class="section-tag reveal-up">Speaking</span>
+      <h2 class="section-h2 reveal-up">A Message That<br>Calls Men <span style="color:#5CFF3D;">Higher.</span></h2>
+      <p class="body-text reveal-up" style="margin-bottom:2rem;">
+        Whether it's a church, a conference stage, or a corporate arena — the message is the same: Men, you were made for more. And there's a practical path to get there.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2.5rem;" class="reveal-up">
+        <div style="padding:1.25rem 1.5rem;background:#0A0A0A;border-left:3px solid #5CFF3D;">
+          <div style="font-size:0.78rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#5CFF3D;margin-bottom:0.3rem;">Keynote</div>
+          <div style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.65);">Purpose-driven talks for men's events, churches, and leadership conferences</div>
+        </div>
+        <div style="padding:1.25rem 1.5rem;background:#0A0A0A;border-left:3px solid rgba(92,255,61,0.4);">
+          <div style="font-size:0.78rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#5CFF3D;margin-bottom:0.3rem;">Workshop</div>
+          <div style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.65);">Half-day and full-day deep dives on leadership, communication, and identity</div>
+        </div>
+        <div style="padding:1.25rem 1.5rem;background:#0A0A0A;border-left:3px solid rgba(92,255,61,0.25);">
+          <div style="font-size:0.78rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#5CFF3D;margin-bottom:0.3rem;">Corporate</div>
+          <div style="font-size:0.9rem;font-weight:500;color:rgba(255,255,255,0.65);">Team leadership and performance mindset sessions for organizations</div>
+        </div>
+      </div>
+      <a href="speaking.html" class="btn-primary reveal-up">Check Availability</a>
+    </div>
+    <div class="reveal-right" style="position:relative;">
+      <div class="photo-frame" style="height:560px;">
+        <img src="https://placehold.co/600x560/0a0a0a/5CFF3D?text=On+Stage" alt="Speaking photo">
+        <div class="photo-corner tl"></div>
+        <div class="photo-corner br"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="h-divider" style="max-width:1280px;margin:0 auto;"></div>
+
+<!-- BOOKS -->
+<section style="padding:7rem 2.5rem;max-width:1280px;margin:0 auto;">
+  <div style="text-align:center;margin-bottom:4.5rem;">
+    <span class="section-tag reveal-up">Books</span>
+    <h2 class="section-h2 reveal-up">Tools to Build the Man<br><span style="color:#5CFF3D;">God Calls You to Be.</span></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;" class="books-grid">
+    <div class="offer-card reveal-scale" style="display:flex;flex-direction:column;">
+      <div class="photo-frame" style="height:320px;margin:-2.5rem -2rem 2rem;flex-shrink:0;">
+        <img src="https://placehold.co/400x320/0a0a0a/5CFF3D?text=Book+Cover" alt="Book 1">
+      </div>
+      <div class="card-title">Inspired to Lead</div>
+      <p class="card-text" style="flex:1;">The foundational text on becoming the leader God designed. A blueprint for men who are done settling and ready to rise.</p>
+      <a href="books.html" class="btn-outline" style="font-size:0.75rem;padding:0.75rem 1.5rem;text-align:center;">Get the Book</a>
+    </div>
+    <div class="offer-card reveal-scale" style="display:flex;flex-direction:column;border-color:rgba(92,255,61,0.2);">
+      <div class="photo-frame" style="height:320px;margin:-2.5rem -2rem 2rem;flex-shrink:0;">
+        <img src="https://placehold.co/400x320/0f1008/1FAE4B?text=Book+Cover" alt="Book 2">
+      </div>
+      <div class="card-title">Speak with Purpose</div>
+      <p class="card-text" style="flex:1;">Communication is leadership. This book gives you the language, framework, and confidence to say what needs to be said — and be heard.</p>
+      <a href="books.html" class="btn-primary" style="font-size:0.75rem;padding:0.75rem 1.5rem;text-align:center;">Get the Book</a>
+    </div>
+    <div class="offer-card reveal-scale" style="display:flex;flex-direction:column;">
+      <div class="photo-frame" style="height:320px;margin:-2.5rem -2rem 2rem;flex-shrink:0;">
+        <img src="https://placehold.co/400x320/0a0a0a/5CFF3D?text=Book+Cover" alt="Book 3">
+      </div>
+      <div class="card-title">Built Different</div>
+      <p class="card-text" style="flex:1;">Discipline. Faith. Legacy. A raw and real look at what it takes to live differently in a world that wants you average.</p>
+      <a href="books.html" class="btn-outline" style="font-size:0.75rem;padding:0.75rem 1.5rem;text-align:center;">Get the Book</a>
+    </div>
+  </div>
+</section>
+
+<div class="h-divider" style="max-width:1280px;margin:0 auto;"></div>
+
+<!-- TESTIMONIALS -->
+<section style="padding:7rem 2.5rem;max-width:1280px;margin:0 auto;">
+  <div style="text-align:center;margin-bottom:4.5rem;">
+    <span class="section-tag reveal-up">Impact</span>
+    <h2 class="section-h2 reveal-up">Real Men. Real <span style="color:#5CFF3D;">Results.</span></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="testi-grid">
+    <div class="testi-card reveal-up">
+      <p class="testi-text">"This message changed how I show up for my family. I stopped making excuses and started leading. My wife noticed within a week."</p>
+      <div class="testi-name">Marcus T.</div>
+      <div class="testi-role">Husband · Father · Course Graduate</div>
+    </div>
+    <div class="testi-card reveal-up">
+      <p class="testi-text">"He spoke at our men's conference and the room was never the same. 300 men walked out with a mission. That's the power of this message."</p>
+      <div class="testi-name">Pastor David R.</div>
+      <div class="testi-role">Senior Pastor · Atlanta, GA</div>
+    </div>
+    <div class="testi-card reveal-up">
+      <p class="testi-text">"I finally have clarity on my purpose. Not a vague idea — a real direction. The course broke it down in a way I could actually act on."</p>
+      <div class="testi-name">James W.</div>
+      <div class="testi-role">Business Owner · Father of 3</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="padding:7rem 2.5rem;text-align:center;background:#0A100A;border-top:1px solid rgba(92,255,61,0.1);border-bottom:1px solid rgba(92,255,61,0.1);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 100%,rgba(92,255,61,0.05),transparent);pointer-events:none;"></div>
+  <div style="max-width:700px;margin:0 auto;position:relative;">
+    <span class="section-tag reveal-up">The Time Is Now</span>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:clamp(2.2rem,5vw,4.5rem);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1.05;margin-bottom:1.25rem;" class="reveal-up">
+      Clear Men<br><span style="color:#5CFF3D;">Lead Better Lives.</span><br>Start Today.
+    </h2>
+    <p class="body-text reveal-up" style="max-width:500px;margin:0 auto 2.5rem;font-size:1rem;">
+      Gain clarity in your purpose. Communicate with confidence. Lead your family and business with conviction. The Clarity Leader System starts now.
+    </p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="reveal-scale">
+      <a href="course.html" class="btn-primary">Start the Course</a>
+      <a href="speaking.html" class="btn-outline">Book a Speaking Event</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:1280px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:3rem;">
+      <div>
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1.25rem;">
+          <div style="width:32px;height:32px;background:#5CFF3D;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <span style="font-size:0.85rem;font-weight:900;color:#000;">IL</span>
+          </div>
+          <span style="font-weight:800;font-size:0.9rem;color:#fff;letter-spacing:0.04em;text-transform:uppercase;">Inspired Life Co</span>
+        </div>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.35);line-height:1.8;max-width:280px;font-weight:500;">Helping Christian men gain clarity, communicate with confidence, and lead their families well.</p>
+        <div style="margin-top:1.25rem;font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(92,255,61,0.6);">Clarity · Communication · Leadership</div>
+      </div>
+      <div>
+        <h4 style="font-size:0.68rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1.25rem;">Navigate</h4>
+        <div style="display:flex;flex-direction:column;gap:0.8rem;">
+          <a href="index.html" class="footer-link">Home</a>
+          <a href="course.html" class="footer-link">Course</a>
+          <a href="speaking.html" class="footer-link">Speaking</a>
+          <a href="books.html" class="footer-link">Books</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:0.68rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1.25rem;">Work Together</h4>
+        <div style="display:flex;flex-direction:column;gap:0.8rem;">
+          <a href="speaking.html" class="footer-link">Book a Speaking Event</a>
+          <a href="course.html" class="footer-link">Enroll in Course</a>
+          <a href="books.html" class="footer-link">Get the Books</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:0.68rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1.25rem;">Connect</h4>
+        <div style="display:flex;flex-direction:column;gap:0.8rem;">
+          <a href="#" class="footer-link">Instagram</a>
+          <a href="#" class="footer-link">YouTube</a>
+          <a href="#" class="footer-link">Facebook</a>
+          <a href="#" class="footer-link">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(92,255,61,0.07);padding-top:1.75rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;align-items:center;">
+      <p style="font-size:0.75rem;font-weight:500;">© 2026 Inspired Life Co. All rights reserved.</p>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.2);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;">Clarity Creates Leaders</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.4);}}
+@keyframes scrollLine{0%,100%{opacity:0.2;}50%{opacity:0.7;}}
+@media(max-width:900px){
+  .about-grid,.course-grid,.speaking-grid{grid-template-columns:1fr!important;gap:3rem!important;}
+  .offers-grid,.testi-grid{grid-template-columns:1fr!important;}
+  #mainNav>div>div:last-child{gap:1.5rem;}
+}
+</style>
+
+<script>
+// ── HERO PARTICLE ANIMATION (rising green embers) ──────────
+const canvas=document.getElementById('heroCanvas'),ctx=canvas.getContext('2d');
+let mouse={x:-9999,y:-9999},particles=[],T=0;
+
+function resize(){
+  canvas.width=canvas.offsetWidth;
+  canvas.height=canvas.offsetHeight;
+  initParticles();
+}
+window.addEventListener('resize',resize);
+
+const COLORS=[
+  [92,255,61],   // neon green
+  [31,174,75],   // deep green
+  [150,255,100], // light green
+  [200,255,170], // pale green white
+];
+
+class Ember{
+  constructor(init){this.reset(init);}
+  reset(init){
+    this.x=Math.random()*canvas.width;
+    this.y=init?Math.random()*canvas.height:(canvas.height+10);
+    this.vy=-(Math.random()*0.7+0.25);
+    this.vx=(Math.random()-0.5)*0.35;
+    this.r=Math.random()*1.8+0.4;
+    this.glowR=this.r*(4+Math.random()*5);
+    this.maxAlpha=Math.random()*0.8+0.2;
+    this.life=0;
+    this.maxLife=(canvas.height+20)/Math.abs(this.vy);
+    this.wobble=Math.random()*Math.PI*2;
+    this.wobbleSpeed=Math.random()*0.018+0.006;
+    this.wobbleAmp=Math.random()*0.4+0.1;
+    this.pulse=Math.random()*Math.PI*2;
+    this.pulseSpeed=Math.random()*0.04+0.015;
+    this.col=COLORS[Math.floor(Math.random()*COLORS.length)];
+    // Trail
+    this.trail=[];
+    this.trailLen=Math.floor(Math.random()*8)+3;
+  }
+  update(){
+    // Mouse repulsion
+    const dx=this.x-mouse.x,dy=this.y-mouse.y;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<120){
+      const f=(1-dist/120)*1.2;
+      this.vx+=dx/dist*f;
+      this.vy+=dy/dist*f;
+    }
+    this.trail.push([this.x,this.y]);
+    if(this.trail.length>this.trailLen)this.trail.shift();
+    this.wobble+=this.wobbleSpeed;
+    this.pulse+=this.pulseSpeed;
+    this.x+=this.vx+Math.sin(this.wobble)*this.wobbleAmp;
+    this.y+=this.vy;
+    this.vx*=0.98;
+    this.vy=Math.min(this.vy+0.001,this.vy); // slight drag
+    this.life++;
+    if(this.y<-10)this.reset(false);
+  }
+  draw(){
+    const fadeIn=Math.min(1,this.life/50);
+    const fadeOut=Math.min(1,(this.maxLife-this.life)/50);
+    const pulse=0.7+Math.sin(this.pulse)*0.3;
+    const a=this.maxAlpha*Math.min(fadeIn,fadeOut)*pulse;
+    if(a<0.01)return;
+    const [r,g,b]=this.col;
+    // Trail
+    for(let i=0;i<this.trail.length;i++){
+      const ta=(i/this.trail.length)*a*0.35;
+      const tr=this.r*(i/this.trail.length)*0.7;
+      ctx.beginPath();ctx.arc(this.trail[i][0],this.trail[i][1],Math.max(0.2,tr),0,Math.PI*2);
+      ctx.fillStyle=`rgba(${r},${g},${b},${ta})`;ctx.fill();
+    }
+    // Glow halo
+    const grad=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.glowR);
+    grad.addColorStop(0,`rgba(${r},${g},${b},${a*0.7})`);
+    grad.addColorStop(0.4,`rgba(${r},${g},${b},${a*0.25})`);
+    grad.addColorStop(1,`rgba(${r},${g},${b},0)`);
+    ctx.beginPath();ctx.arc(this.x,this.y,this.glowR,0,Math.PI*2);
+    ctx.fillStyle=grad;ctx.fill();
+    // Core
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fill();
+  }
+}
+
+// Click burst
+const burstParticles=[];
+class BurstEmber{
+  constructor(x,y){
+    this.x=x;this.y=y;
+    const a=Math.random()*Math.PI*2,s=Math.random()*4+1.5;
+    this.vx=Math.cos(a)*s;this.vy=Math.sin(a)*s;
+    this.r=Math.random()*2.5+0.5;
+    this.life=0;this.maxLife=50+Math.floor(Math.random()*30);
+    this.col=COLORS[Math.floor(Math.random()*COLORS.length)];
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    this.vx*=0.91;this.vy*=0.91;this.vy+=0.05;
+    this.life++;return this.life<this.maxLife;
+  }
+  draw(){
+    const a=1-this.life/this.maxLife;
+    const [r,g,b]=this.col;
+    const grad=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r*5);
+    grad.addColorStop(0,`rgba(${r},${g},${b},${a})`);
+    grad.addColorStop(1,`rgba(${r},${g},${b},0)`);
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r*5,0,Math.PI*2);ctx.fillStyle=grad;ctx.fill();
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fill();
+  }
+}
+
+function initParticles(){
+  const count=Math.min(130,Math.floor((canvas.width*canvas.height)/8000));
+  particles=Array.from({length:count},()=>new Ember(true));
+}
+resize();
+
+function anim(){
+  T++;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.update();p.draw();});
+  for(let i=burstParticles.length-1;i>=0;i--){
+    if(!burstParticles[i].update())burstParticles.splice(i,1);
+    else burstParticles[i].draw();
+  }
+  requestAnimationFrame(anim);
+}
+anim();
+
+const hero=document.getElementById('hero');
+hero.addEventListener('mousemove',e=>{
+  const r=canvas.getBoundingClientRect();
+  mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;
+});
+hero.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;});
+hero.addEventListener('click',e=>{
+  const r=canvas.getBoundingClientRect();
+  const x=e.clientX-r.left,y=e.clientY-r.top;
+  for(let i=0;i<25;i++)burstParticles.push(new BurstEmber(x,y));
+});
+
+// ── NAV SCROLL ────────────────────────────────────────────
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>60)nav.classList.add('scrolled-nav');
+  else nav.classList.remove('scrolled-nav');
+});
+
+// ── SCROLL REVEAL ─────────────────────────────────────────
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const siblings=[...e.target.parentElement.querySelectorAll('.reveal-up,.reveal-left,.reveal-right,.reveal-scale')];
+      const idx=siblings.indexOf(e.target);
+      e.target.style.transitionDelay=`${idx*0.1}s`;
+      e.target.classList.add('revealed');
+      ro.unobserve(e.target);
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal-up,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
